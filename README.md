@@ -1,5 +1,6 @@
 # MovieX
 
+<<<<<<< HEAD
 A new flutter movie app project !!!
 
 ## Screenshots from MovieX
@@ -33,3 +34,6 @@ A new flutter movie app project !!!
 
 ### Movie Genre 2
 ![Movie Genre 2](assets/images/movie_genre_2.png)
+=======
+A new flutter movie app project!
+>>>>>>> 6c82df1c009140589ab1edb8358d36a338129f57
