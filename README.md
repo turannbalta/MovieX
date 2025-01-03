@@ -1,39 +1,35 @@
 # MovieX
 
-<<<<<<< HEAD
-A new flutter movie app project !!!
+A new Flutter movie app project!
 
 ## Screenshots from MovieX
 
 ### Home Screen
-![Home Screen](assets/images/home_screen.png)
+<img src="assets/images/home_screen.png" width="600" />
 
 ### Favourites Screen
-![Favourites Screen](assets/images/favourites_screen.png)
+<img src="assets/images/favourites_screen.png" width="600" />
 
 ### Watchlist Screen
-![Watchlist Screen](assets/images/watchlist_screen.png)
+<img src="assets/images/watchlist_screen.png" width="600" />
 
-### Movie Page Screen
-![Movie Page Screen 1](assets/images/movie_page_screen_1.png)
+### Movie Page Screen 1
+<img src="assets/images/movie_page_screen_1.png" width="600" />
 
-### Movie Page Screen
-![Movie Page Screen 2](assets/images/movie_page_screen_2.png)
+### Movie Page Screen 2
+<img src="assets/images/movie_page_screen_2.png" width="600" />
 
-### Search Bar
-![Search Bar 1](assets/images/search_bar_1.png)
+### Search Bar 1
+<img src="assets/images/search_bar_1.png" width="600" />
 
-### Search Bar
-![Search Bar 2](assets/images/search_bar_2.png)
+### Search Bar 2
+<img src="assets/images/search_bar_2.png" width="600" />
 
 ### Movie Genres Screen
-![Movie Genres Screen](assets/images/movie_genres.png)
+<img src="assets/images/movie_genres.png" width="600" />
 
 ### Movie Genre 1
-![Movie Genre 1](assets/images/movie_genre_1.png)
+<img src="assets/images/movie_genre_1.png" width="600" />
 
 ### Movie Genre 2
-![Movie Genre 2](assets/images/movie_genre_2.png)
-=======
-A new flutter movie app project!
->>>>>>> 6c82df1c009140589ab1edb8358d36a338129f57
+<img src="assets/images/movie_genre_2.png" width="600" />
