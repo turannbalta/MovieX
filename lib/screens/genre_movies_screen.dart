@@ -45,10 +45,13 @@ class GenreMoviesScreen extends StatelessWidget {
           ),
         ),
         child: FutureBuilder<List<Movie>>(
-          future: ApiService.fetchMoviesByGenre(genreId),
+          future: ApiService.fetchMoviesByGenre(
+              genreId), // API'den tür bazında filmleri çekme
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
+              return const Center(
+                  child:
+                      CircularProgressIndicator()); // Veri yüklenirken gösterilen yükleniyor simgesi
             } else if (snapshot.hasError || snapshot.data == null) {
               return const Center(
                 child: Text(
@@ -63,12 +66,13 @@ class GenreMoviesScreen extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, // 2 sütunlu grid
-                  childAspectRatio: 0.6, // Kartın yüksekliği küçültüldü
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.6,
                   crossAxisSpacing: 12,
                   mainAxisSpacing: 12,
                 ),
-                itemCount: movies.length,
+                itemCount:
+                    movies.length, // Filmlerin sayısı kadar kart oluşturulur
                 itemBuilder: (context, index) {
                   final movie = movies[index];
                   return Card(
@@ -80,15 +84,14 @@ class GenreMoviesScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Film Görseli (Afiş büyütüldü)
                         ClipRRect(
                           borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(12),
                             topRight: Radius.circular(12),
                           ),
                           child: Image.network(
-                            'https://image.tmdb.org/t/p/w500${movie.posterPath}',
-                            height: 200, // Afiş boyutu büyütüldü
+                            'https://image.tmdb.org/t/p/w500${movie.posterPath}', // Film posteri URL'si
+                            height: 200,
                             width: double.infinity,
                             fit: BoxFit.cover,
                             errorBuilder: (context, error, stackTrace) =>

@@ -13,26 +13,28 @@ class MoviePageScreen extends StatefulWidget {
 }
 
 class _MoviePageScreenState extends State<MoviePageScreen> {
-  bool isFavourite = false;
-  bool isInWatchlist = false;
-  List<String> cast = [];
-  List<String> genres = [];
+  bool isFavourite = false; // Filmin favorilere eklenip eklenmediği
+  bool isInWatchlist = false; // Filmin izlenecekler listesinde olup olmadığı
+  List<String> cast = []; // Filmin oyuncuları
+  List<String> genres = []; // Filmin kategorileri
   bool isLoadingCast = true; // Cast yükleniyor mu?
   bool isLoadingGenres = true; // Genres yükleniyor mu?
 
   @override
   void initState() {
     super.initState();
+    // Favori ve izlenecekler listesi kontrolü
     isFavourite = GlobalState.isFavourite(widget.movie);
     isInWatchlist = GlobalState.isInWatchlist(widget.movie);
     _fetchGenres(); // Kategorileri çek
     _fetchCast(); // Oyuncu bilgilerini çek
   }
 
+  // Kategorileri çekmek için API çağrısı
   Future<void> _fetchGenres() async {
     try {
-      final fetchedGenres =
-          await ApiService.fetchMovieGenres(widget.movie.genreIds);
+      final fetchedGenres = await ApiService.fetchMovieGenres(
+          widget.movie.genreIds); // API'den kategoriler çekiliyor
       setState(() {
         genres = fetchedGenres;
         isLoadingGenres = false;
@@ -45,9 +47,11 @@ class _MoviePageScreenState extends State<MoviePageScreen> {
     }
   }
 
+  // Cast (oyuncular) bilgilerini çekmek için API çağrısı
   Future<void> _fetchCast() async {
     try {
-      final fetchedCast = await ApiService.fetchMovieCast(widget.movie.id);
+      final fetchedCast = await ApiService.fetchMovieCast(
+          widget.movie.id); // API'den cast verileri çekiliyor
       setState(() {
         cast = fetchedCast;
         isLoadingCast = false;
@@ -60,6 +64,7 @@ class _MoviePageScreenState extends State<MoviePageScreen> {
     }
   }
 
+  // Favori ve izleme durumunu güncelleme
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -69,26 +74,30 @@ class _MoviePageScreenState extends State<MoviePageScreen> {
     });
   }
 
+  // Favoriye ekleme ve çıkarma işlemi
   void _toggleFavourite() {
     setState(() {
       if (GlobalState.isFavourite(widget.movie)) {
-        GlobalState.favouriteList.remove(widget.movie);
+        GlobalState.favouriteList
+            .remove(widget.movie); // Filmi favorilerden çıkar
         isFavourite = false;
       } else {
-        GlobalState.favouriteList.add(widget.movie);
+        GlobalState.favouriteList.add(widget.movie); // Filmi favorilere ekle
         isFavourite = true;
       }
       GlobalState.savePreferences(); // Değişiklikleri kaydet
     });
   }
 
+  // İzleme listesine ekleme ve çıkarma işlemi
   void _toggleWatchlist() {
     setState(() {
       if (GlobalState.isInWatchlist(widget.movie)) {
-        GlobalState.watchlist.remove(widget.movie);
+        GlobalState.watchlist
+            .remove(widget.movie); // Filmi izleme listesinden çıkar
         isInWatchlist = false;
       } else {
-        GlobalState.watchlist.add(widget.movie);
+        GlobalState.watchlist.add(widget.movie); // Filmi izleme listesine ekle
         isInWatchlist = true;
       }
       GlobalState.savePreferences(); // Değişiklikleri kaydet
@@ -114,14 +123,14 @@ class _MoviePageScreenState extends State<MoviePageScreen> {
               isFavourite ? Icons.favorite : Icons.favorite_border,
               color: Colors.red,
             ),
-            onPressed: _toggleFavourite,
+            onPressed: _toggleFavourite, // Favori ekle/çıkar işlemi
           ),
           IconButton(
             icon: Icon(
               isInWatchlist ? Icons.bookmark : Icons.bookmark_border,
               color: Colors.orange,
             ),
-            onPressed: _toggleWatchlist,
+            onPressed: _toggleWatchlist, // İzleme listesine ekle/çıkar işlemi
           ),
         ],
       ),
@@ -151,7 +160,7 @@ class _MoviePageScreenState extends State<MoviePageScreen> {
               ),
               const SizedBox(height: 16),
 
-              // Release Date
+              // Yayın tarihi
               _buildInfoRow(
                 icon: Icons.calendar_today,
                 title: 'Release Date',
@@ -159,7 +168,7 @@ class _MoviePageScreenState extends State<MoviePageScreen> {
               ),
               const SizedBox(height: 8),
 
-              // Rated
+              // Puan
               _buildInfoRow(
                 icon: Icons.star_rate,
                 title: 'Rated',
@@ -167,7 +176,7 @@ class _MoviePageScreenState extends State<MoviePageScreen> {
               ),
               const SizedBox(height: 8),
 
-              // Overview
+              // Genel Bakış (Özet)
               const Text(
                 'Overview:',
                 style: TextStyle(
@@ -186,7 +195,7 @@ class _MoviePageScreenState extends State<MoviePageScreen> {
               ),
               const SizedBox(height: 16),
 
-              // Category
+              // Kategoriler
               const Text(
                 'Category:',
                 style: TextStyle(
@@ -215,7 +224,7 @@ class _MoviePageScreenState extends State<MoviePageScreen> {
                         ),
               const SizedBox(height: 16),
 
-              // Cast
+              // Cast (Oyuncular)
               const Text(
                 'Cast:',
                 style: TextStyle(
@@ -286,7 +295,7 @@ class _MoviePageScreenState extends State<MoviePageScreen> {
               fontSize: 16,
               color: Colors.white70,
             ),
-            overflow: TextOverflow.ellipsis,
+            overflow: TextOverflow.ellipsis, // Taşan metin için üç nokta
           ),
         ),
       ],

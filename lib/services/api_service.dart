@@ -4,8 +4,9 @@ import '../models/movie.dart';
 
 class ApiService {
   static const String _baseUrl = 'https://api.themoviedb.org/3';
-  static const String _apiKey = 'API_KEY'; // Enter your api key
+  static const String _apiKey = 'API_KEY'; // Api key gir
 
+  // Filmleri kategoriye göre al
   static Future<List<Movie>> fetchMovies(String category) async {
     final response = await http.get(
       Uri.parse('$_baseUrl/movie/$category?api_key=$_apiKey'),
@@ -21,6 +22,7 @@ class ApiService {
     }
   }
 
+  // Bir filmin oyuncu kadrosunu al
   static Future<List<String>> fetchMovieCast(int movieId) async {
     try {
       final response = await http.get(
@@ -46,6 +48,7 @@ class ApiService {
     }
   }
 
+  // Türleri al
   static Future<Map<int, String>> fetchGenres() async {
     try {
       final response = await http.get(
@@ -72,6 +75,7 @@ class ApiService {
     }
   }
 
+  // Bir türdeki filmleri al
   static Future<List<Movie>> fetchMoviesByGenre(int genreId) async {
     try {
       final response = await http.get(
@@ -93,6 +97,7 @@ class ApiService {
     }
   }
 
+  // Filmleri arama
   static Future<List<Movie>> searchMovies(String query) async {
     try {
       final response = await http.get(
@@ -123,6 +128,7 @@ class ApiService {
     }
   }
 
+  // Film türlerini alın
   static Future<List<String>> fetchMovieGenres(List<int> genreIds) async {
     try {
       final genres = await fetchGenres(); // Mevcut tür listesini al

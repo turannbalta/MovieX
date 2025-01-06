@@ -19,9 +19,11 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Movie> _searchResults = [];
   int _currentIndex = 0;
 
-  static final List<Movie> favouriteList = GlobalState.favouriteList;
-  static final List<Movie> watchlist = GlobalState.watchlist;
+  static final List<Movie> favouriteList =
+      GlobalState.favouriteList; // Favori filmler
+  static final List<Movie> watchlist = GlobalState.watchlist; // İzleme listesi
 
+  // Filmleri API üzerinden arar
   Future<void> _searchMovies(String query) async {
     if (query.isEmpty) {
       setState(() {
@@ -39,12 +41,14 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  // Arama modunu başlatır
   void _startSearch() {
     setState(() {
       _isSearching = true;
     });
   }
 
+  // Arama modunu sonlandırır
   void _stopSearch() {
     setState(() {
       _isSearching = false;
@@ -53,6 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  // Alt barda sekme değiştirildiğinde çağrılır
   void _onTapBottomNav(int index) {
     setState(() {
       _currentIndex = index;
@@ -68,12 +73,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 controller: _searchController,
                 autofocus: true,
                 decoration: const InputDecoration(
-                  hintText: 'Search for a movie...',
+                  hintText:
+                      'Search for a movie...', // Kullanıcıya arama çubuğunda verilen ipucu
                   border: InputBorder.none,
                   hintStyle: TextStyle(color: Colors.white70),
                 ),
                 style: const TextStyle(color: Colors.white),
-                onChanged: _searchMovies,
+                onChanged: _searchMovies, // Kullanıcı yazdıkça arama yapar
               )
             : const Text(
                 '🎬 MovieX',
@@ -107,12 +113,14 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       drawer: Drawer(
         child: FutureBuilder<Map<int, String>>(
-          future: ApiService.fetchGenres(),
+          future: ApiService.fetchGenres(), // Türleri API'den getir
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
+              return const Center(
+                  child: CircularProgressIndicator()); // Yüklenme durumu
             } else if (snapshot.hasError || snapshot.data == null) {
-              return const Center(child: Text('Error loading genres'));
+              return const Center(
+                  child: Text('Error loading genres')); // Hata durumu
             }
 
             final genres = snapshot.data!;
@@ -159,6 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     onTap: () {
+                      // Tür seçildiğinde tür sayfasına yönlendir
                       Navigator.of(context).pop();
                       Navigator.of(context).push(
                         MaterialPageRoute(
@@ -178,7 +187,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Stack(
         children: [
-          if (_currentIndex == 0)
+          if (_currentIndex == 0) // Ana sayfa -home screen-
             const SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.all(8.0),
@@ -197,9 +206,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             )
-          else if (_currentIndex == 1)
+          else if (_currentIndex == 1) // Favoriler -favourites-
             _buildListPage('Favourites', favouriteList)
-          else if (_currentIndex == 2)
+          else if (_currentIndex == 2) // İzleme listesi -watchlist-
             _buildListPage('Watchlist', watchlist),
           if (_searchResults.isNotEmpty) _buildSearchResultsOverlay(),
         ],
@@ -215,10 +224,10 @@ class _HomeScreenState extends State<HomeScreen> {
         child: BottomNavigationBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          currentIndex: _currentIndex,
-          selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.grey,
-          onTap: _onTapBottomNav,
+          currentIndex: _currentIndex, // Aktif sekme
+          selectedItemColor: Colors.white, // Seçilen sekme rengi
+          unselectedItemColor: Colors.grey, // Seçilmeyen sekme rengi
+          onTap: _onTapBottomNav, // Sekme değişimi
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
             BottomNavigationBarItem(
@@ -231,6 +240,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  // Arama sonuçlarını gösteren widget
   Widget _buildSearchResultsOverlay() {
     return Positioned(
       top: 0,
@@ -264,6 +274,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 subtitle: Text(movie.releaseDate,
                     style: const TextStyle(color: Colors.grey)),
                 onTap: () async {
+                  // Film tıklanırsa detay sayfasına git
                   await Navigator.push(
                     context,
                     MaterialPageRoute(

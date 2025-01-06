@@ -1,4 +1,5 @@
 class Movie {
+  // Film bilgilerini temsil eden model sınıfı
   final int id;
   final String title;
   final String overview;
@@ -7,6 +8,7 @@ class Movie {
   final String releaseDate;
   final List<int> genreIds;
 
+  // Movie sınıfının yapıcı metodu -constructor-
   Movie({
     required this.id,
     required this.title,
@@ -43,6 +45,7 @@ class Movie {
     };
   }
 
+  // İki Movie nesnesi eşit mi ?
   @override
   bool operator ==(Object other) =>
       identical(this, other) || (other is Movie && id == other.id);
