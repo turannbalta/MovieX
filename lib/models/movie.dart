@@ -5,7 +5,7 @@ class Movie {
   final String posterPath;
   final double rating;
   final String releaseDate;
-  final List<int> genreIds; // Yeni alan
+  final List<int> genreIds;
 
   Movie({
     required this.id,
@@ -14,7 +14,7 @@ class Movie {
     required this.posterPath,
     required this.rating,
     required this.releaseDate,
-    required this.genreIds, // Yeni alan
+    required this.genreIds,
   });
 
   // fromJson methodu ile JSON'dan Movie nesnesi oluşturuluyor
@@ -26,7 +26,7 @@ class Movie {
       posterPath: json['poster_path'] ?? '',
       rating: (json['vote_average'] ?? 0).toDouble(),
       releaseDate: json['release_date'] ?? 'Unknown',
-      genreIds: List<int>.from(json['genre_ids'] ?? []), // Tür kimlikleri
+      genreIds: List<int>.from(json['genre_ids'] ?? []),
     );
   }
 
